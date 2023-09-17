@@ -25,7 +25,9 @@ public class MoneyLaundering
         transactionReader = new TransactionReader();
         amountOfFilesProcessed = new AtomicInteger();
     }
-
+    
+    
+/**
     public void processTransactionData()
     {
         amountOfFilesProcessed.set(0);
@@ -41,6 +43,8 @@ public class MoneyLaundering
             amountOfFilesProcessed.incrementAndGet();
         }
     }
+    * 
+    */
 
     public List<String> getOffendingAccounts()
     {
@@ -61,8 +65,11 @@ public class MoneyLaundering
     public static void main(String[] args)
     {
         MoneyLaundering moneyLaundering = new MoneyLaundering();
-        Thread processingThread = new Thread(() -> moneyLaundering.processTransactionData());
-        processingThread.start();
+        //Thread processingThread = new Thread(() -> moneyLaundering.processTransactionData());
+        //processingThread.start();
+        
+        
+        
         while(true)
         {
             Scanner scanner = new Scanner(System.in);
@@ -71,7 +78,9 @@ public class MoneyLaundering
                 break;
             String message = "Processed %d out of %d files.\nFound %d suspect accounts:\n%s";
             List<String> offendingAccounts = moneyLaundering.getOffendingAccounts();
+            
             String suspectAccounts = offendingAccounts.stream().reduce("", (s1, s2)-> s1 + "\n"+s2);
+            
             message = String.format(message, moneyLaundering.amountOfFilesProcessed.get(), moneyLaundering.amountOfFilesTotal, offendingAccounts.size(), suspectAccounts);
             System.out.println(message);
         }
